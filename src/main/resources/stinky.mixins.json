@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "xyz.devcomp.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ServerStatusPacketListenerImplMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
