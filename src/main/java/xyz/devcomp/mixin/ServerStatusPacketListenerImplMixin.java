@@ -13,13 +13,13 @@ import xyz.devcomp.Stinky;
 
 @Mixin(ServerStatusPacketListenerImpl.class)
 public class ServerStatusPacketListenerImplMixin {
-    private static ArrayList<String> MOTDs = Stinky.Config.getMOTDs();
+    private static final ArrayList<String> MOTDs = Stinky.Config.getMOTDs();
 
     @ModifyVariable(method = "<init>(Lnet/minecraft/network/protocol/status/ServerStatus;Lnet/minecraft/network/Connection;)V", at = @At("HEAD"), ordinal = 0)
-    private static ServerStatus injected(ServerStatus serverStatus) {
+    private static ServerStatus injectCustomMOTD(ServerStatus serverStatus) {
         return new ServerStatus(
-                Component.literal(ServerStatusPacketListenerImplMixin.MOTDs
-                        .get((int) (Math.random() * ServerStatusPacketListenerImplMixin.MOTDs.size()))),
+                Component.literal(MOTDs
+                        .get((int) (Math.random() * MOTDs.size()))),
                 serverStatus.players(), serverStatus.version(),
                 serverStatus.favicon(), serverStatus.enforcesSecureChat());
     }
