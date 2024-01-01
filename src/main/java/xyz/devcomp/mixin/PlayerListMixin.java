@@ -42,6 +42,6 @@ public class PlayerListMixin {
         // for connection
         this.currentFormattingStyle = ChatFormatting.DARK_RED; 
 
-        return component.copy();
+        return component.copy().withStyle(currentChatFormattingStyle);
     }
 }
