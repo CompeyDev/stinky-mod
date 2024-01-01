@@ -7,9 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.PlayerChatMessage;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +18,8 @@ public class Stinky implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("stinky");
 	public static final ConfigModel Config = new ConfigHandler().getConfig();
-	public static final ResourceLocation EC_SOUND_ID = new ResourceLocation("stinky:ping");
-    public static SoundEvent EC_SOUND_EVENT = SoundEvent.createVariableRangeEvent(EC_SOUND_ID);
+	// public static final ResourceLocation EC_SOUND_ID = new ResourceLocation("stinky:ping");
+    // public static SoundEvent EC_SOUND_EVENT = SoundEvent.createVariableRangeEvent(EC_SOUND_ID);
 
 	@Override
 	public void onInitialize() {
@@ -32,10 +30,10 @@ public class Stinky implements ModInitializer {
 		LOGGER.info("Hello from Stinky!");
 		
 		ServerMessageEvents.CHAT_MESSAGE.register((PlayerChatMessage msg, ServerPlayer plr, ChatType.Bound bound) -> {
+			// NOTE: This makes this command dysfunctional on offline mode servers
 			String msgString = msg.signedContent();
 			
-			if (msgString == ";ec") {				
-
+			if (msgString.trim().equalsIgnoreCase(";ec")) {
 				// We're setting the health to 0, instead of plr.kill(), because this 
 				// abuses a flaw in the graves VanillaTweaks datapack to make the player
 				// respawn without creating a grave or losing their items
@@ -44,5 +42,8 @@ public class Stinky implements ModInitializer {
 				plr.setHealth(0);
 			}
 		});
+
+
+		
 	}
 }

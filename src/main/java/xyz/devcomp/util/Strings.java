@@ -51,6 +51,7 @@ public class Strings {
                 "&cplayer&7? &cplayer&7?? &cplayer&7!!!!!"
         };
         public static String[] Explosion = {
+               "&cplayer&7 was blown by &ckiller",
                 "&cplayer&7 blew up",
                 "&cplayer&7 exploded",
         };
